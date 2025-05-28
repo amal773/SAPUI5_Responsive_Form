@@ -3,8 +3,9 @@ sap.ui.define([
   "sap/ui/model/json/JSONModel",
   "./handlers/SectionHandler",
   "./handlers/ComponentHandler",
-  "./handlers/DialogHandler"
-], function (Controller, JSONModel, SectionHandler, ComponentHandler, DialogHandler) {
+  "./handlers/DialogHandler",
+  "sap/ui/core/UIComponent"
+], function (Controller, JSONModel, SectionHandler, ComponentHandler, DialogHandler, UIComponent) {
   "use strict";
 
   return Controller.extend("sap.ui.demo.walkthrough.controller.App", {
@@ -34,6 +35,9 @@ sap.ui.define([
 
     _openConfigDialog: function (field, index) {
       DialogHandler.openFieldConfigDialog(this, field, index);
+    },
+    onCreateForm: function () {
+      this._navigateToAppView();
     }
   });
 });
