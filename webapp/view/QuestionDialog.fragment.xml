@@ -1,0 +1,41 @@
+<Dialog
+  title="Edit Question Properties"
+  xmlns="sap.m"
+  stretchOnPhone="true">
+  <content>
+    <VBox class="sapUiSmallMargin">
+
+      <Label text="Label" />
+      <Input value="{form>label}" />
+
+      <Label text="Placeholder" visible="{= ${form>type} === 'text' || ${form>type} === 'textarea' }" />
+      <Input value="{form>placeholder}" visible="{= ${form>type} === 'text' || ${form>type} === 'textarea' }" />
+
+      <Label text="Required" />
+      <CheckBox selected="{form>required}" />
+
+      <Label text="Type" />
+      <Text text="{form>type}" />
+
+      <Label text="Options" visible="{= ${form>type} === 'dropdown' || ${form>type} === 'radio'}" />
+      <VBox visible="{= ${form>type} === 'dropdown' || ${form>type} === 'radio'}" id="optionsBox">
+        <List
+          items="{form>options}"
+          inset="false"
+          showNoData="false">
+          <items>
+            <Input value="{.}" liveChange="onOptionChange" />
+          </items>
+        </List>
+        <Button text="Add Option" press="onAddOption" />
+      </VBox>
+
+    </VBox>
+  </content>
+  <beginButton>
+    <Button text="Save" press="onDialogSave" />
+  </beginButton>
+  <endButton>
+    <Button text="Cancel" press="onDialogCancel" />
+  </endButton>
+</Dialog>

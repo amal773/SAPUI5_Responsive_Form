@@ -2,28 +2,30 @@
   controllerName="sap.ui.demo.walkthrough.controller.App"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
-  xmlns:core="sap.ui.core"
   xmlns:layout="sap.ui.layout"
-  >
+  xmlns:core="sap.ui.core">
 
-  <HBox width="100%" height="100%">
-    <!-- Left Sidebar -->
-    <VBox width="30%" class="sapUiSmallMargin">
-      <Input id="sectionNameInput" placeholder="Enter Section Name" />
-      <Button text="Add Section" press="onAddSection"/>
-      <List id="sectionList" items="{/sections}" 
-            mode="SingleSelectMaster" 
-            selectionChange="onSectionSelect">
-        <StandardListItem title="{name}" />
-      </List>
+  <FlexBox direction="Row" class="fullHeight">
+
+    <!-- LEFT PANEL -->
+    <VBox class="leftPanel sapUiSmallMargin">
+      <Title text="Controls" level="H3" />
+      <Button text="Add Section" press="onAddSection" class="sapUiTinyMarginBottom" />
+
+      <Title text="Field Types" level="H5" class="sapUiSmallMarginTop" />
+      <Button text="Text Input" press="onAddTextField" />
+      <Button text="Dropdown" press="onAddDropdown" />
+      <!-- <Button text="Checkbox" press="onAddCheckbox" /> -->
+      <Button text="Radio Button" press="onAddRadioButton" />
+      <Button text="Number Input" press="onAddNumberField" />
+      <Button text="Email Input" press="onAddEmailField" />
     </VBox>
 
-    <!-- Right Main Area -->
-    <VBox width="70%" class="sapUiSmallMargin">
-      <Text text="{/selectedSection/name}" class="sapUiSmallMarginBottom sapUiSmallMarginTop" />
-      <Button text="Add Component" press="onAddComponent" />
-      <VBox id="formArea" />
+    <!-- RIGHT PANEL -->
+    <VBox id="mainVBox" class="rightPanel sapUiSmallMargin">
+      <Title text="Form Preview" level="H3" />
+      <!-- Sections will be added here -->
     </VBox>
-  </HBox>
 
+  </FlexBox>
 </mvc:View>

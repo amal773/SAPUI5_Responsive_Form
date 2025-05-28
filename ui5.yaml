@@ -1,4 +1,4 @@
-specVersion: "4.0"
+specVersion: "3.2"
 metadata:
   name: fact
 type: application
