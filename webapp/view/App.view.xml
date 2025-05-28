@@ -1,0 +1,29 @@
+<mvc:View
+  controllerName="sap.ui.demo.walkthrough.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:layout="sap.ui.layout"
+  >
+
+  <HBox width="100%" height="100%">
+    <!-- Left Sidebar -->
+    <VBox width="30%" class="sapUiSmallMargin">
+      <Input id="sectionNameInput" placeholder="Enter Section Name" />
+      <Button text="Add Section" press="onAddSection"/>
+      <List id="sectionList" items="{/sections}" 
+            mode="SingleSelectMaster" 
+            selectionChange="onSectionSelect">
+        <StandardListItem title="{name}" />
+      </List>
+    </VBox>
+
+    <!-- Right Main Area -->
+    <VBox width="70%" class="sapUiSmallMargin">
+      <Text text="{/selectedSection/name}" class="sapUiSmallMarginBottom sapUiSmallMarginTop" />
+      <Button text="Add Component" press="onAddComponent" />
+      <VBox id="formArea" />
+    </VBox>
+  </HBox>
+
+</mvc:View>
