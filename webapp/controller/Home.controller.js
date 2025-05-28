@@ -24,7 +24,7 @@ sap.ui.define([
       },
   
       onFormSelectChange: function (oEvent) {
-        var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
+        let sSelectedKey = oEvent.getParameter("selectedItem").getKey();
         this.getView().getModel().setProperty("/selectedForm", sSelectedKey || null);
       },
   
