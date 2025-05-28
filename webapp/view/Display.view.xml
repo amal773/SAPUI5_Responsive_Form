@@ -1,0 +1,19 @@
+<mvc:View
+  controllerName="sap.ui.demo.walkthrough.controller.Display"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:layout="sap.ui.layout"
+  >
+  <Page title="Form Data Display" showNavButton="true" navButtonPress="onNavBack">
+    <ScrollContainer vertical="true" horizontal="false" height="100%">
+      <VBox class="sapUiContentPadding" width="100%">
+        <List items="{/sections}">
+          <StandardListItem title="{name}" />
+        </List>
+
+        <VBox id="fieldsContainer" />
+      </VBox>
+    </ScrollContainer>
+  </Page>
+</mvc:View>

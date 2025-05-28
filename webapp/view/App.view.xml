@@ -6,6 +6,8 @@
   xmlns:layout="sap.ui.layout"
   >
 
+  git fetch
+
   <HBox width="100%" height="100%">
     <!-- Left Sidebar -->
     <VBox width="30%" class="sapUiSmallMargin">

@@ -8,7 +8,7 @@ sap.ui.define([
   "use strict";
 
   return {
-    openFieldConfigDialog: function (controller, field, index) {
+    openFieldConfigDialog: function (field, index, model, rerenderCallback, saveCallback) {
       const dialog = new Dialog({
         title: "Configure Field",
         content: [
@@ -24,8 +24,10 @@ sap.ui.define([
             field.label = dialog.getContent()[1].getValue();
             field.placeholder = dialog.getContent()[3].getValue();
             field.required = dialog.getContent()[4].getSelected();
-            controller.oModel.updateBindings();
-            controller._renderSectionFields();
+
+            model.updateBindings();
+            rerenderCallback();
+            saveCallback();
             dialog.close();
           }
         }),
