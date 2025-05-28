@@ -1,12 +1,11 @@
 {
-  "name": "fact",
+  "name": "sapui5-responsive-form",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ui5 serve --open index.html"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "devDependencies": {
+    "@ui5/cli": "^3.0.0"
+  }
 }
