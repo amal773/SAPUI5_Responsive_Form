@@ -28,38 +28,50 @@ sap.ui.define([
     },
 
     onAddSection: function () {
-      // Create a grid for fields in this section
       const grid = new Grid({
         id: "grid-" + this.sectionCount,
-        defaultSpan: "L4 M6 S12", // 3 columns on large screen, 2 on medium, 1 on small
+        defaultSpan: "L4 M6 S12",
         hSpacing: 1,
         vSpacing: 1
       });
-
-      // Section container with header + select button + grid
-      const section = new VBox({
-        class: "sectionBox sapUiSmallMargin",
-        items: [
-          new HBox({
-            justifyContent: "SpaceBetween",
-            items: [
-              new Text({ text: "Section " + (this.sectionCount + 1), class: "sectionHeader" }),
-              new Button({
-                text: "Select",
-                press: () => {
-                  this.selectedSection = grid;
-                  // MessageToast.show("Selected Section " + (this.section));
-                }
-              })
-            ]
-          }),
-          grid
-        ]
+    
+      const headerText = "Section " + (this.sectionCount + 1);
+    
+      const panel = new sap.m.Panel({
+        headerToolbar: new sap.m.Toolbar({
+          content: [
+            new sap.m.Text({ text: headerText }),
+            new sap.m.ToolbarSpacer(),
+            new Button({
+              text: "Select",
+              press: () => {
+                this._clearSelectedSections();
+                panel.addStyleClass("selectedSectionCard");
+                this.selectedSection = grid;
+                MessageToast.show("Selected " + headerText);
+              }
+            })
+          ]
+        }),
+        content: [grid],
+        expandable: false,
+        class: "sapUiResponsiveMargin sapUiTinyMarginBottom sapUiTinyMarginTop sapUiMediumPadding"
       });
-
-      this.byId("mainVBox").addItem(section);
-      this.selectedSection = grid;  // auto-select new section
+    
+      this.byId("mainVBox").addItem(panel);
+      this.selectedSection = grid;
+      this._clearSelectedSections(); // Clear others
+      panel.addStyleClass("selectedSectionCard");
       this.sectionCount++;
+    },
+    _clearSelectedSections: function () {
+      const mainVBox = this.byId("mainVBox");
+      if (!mainVBox) return;
+      mainVBox.getItems().forEach(item => {
+        if (item.removeStyleClass) {
+          item.removeStyleClass("selectedSectionCard");
+        }
+      });
     },
 
     _addFieldToGrid: function (oFieldVBox) {
