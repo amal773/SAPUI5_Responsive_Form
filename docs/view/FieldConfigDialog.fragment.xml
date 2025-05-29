@@ -1,0 +1,63 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+
+  <Dialog
+    id="fieldConfigDialog"
+    title="Configure Field"
+    stretchOnPhone="true"
+    resizable="true"
+    draggable="true"
+    class="sapUiPopupWithPadding"
+    contentWidth="400px"
+    contentHeight="auto">
+
+    <content>
+      <VBox
+        width="100%"
+        class="sapUiSmallMargin sapUiResponsiveMargin">
+
+        <Label text="Label" labelFor="fieldLabelInput" />
+        <Input id="fieldLabelInput" width="100%" placeholder="Enter field label" />
+
+        <Label
+          id="placeholderLabel"
+          text="Placeholder (optional)"
+          labelFor="fieldPlaceholderInput"
+          visible="{= ${/fieldType} === 'text' || ${/fieldType} === 'dropdown' || ${/fieldType} === 'email' || ${/fieldType} === 'number'}" />
+        <Input
+          id="fieldPlaceholderInput"
+          width="100%"
+          placeholder="Enter placeholder text"
+          visible="{= ${/fieldType} === 'text' || ${/fieldType} === 'dropdown' || ${/fieldType} === 'email' || ${/fieldType} === 'number'}" />
+
+        <Label
+          id="optionsLabel"
+          text="Options (comma separated)"
+          labelFor="fieldOptionsInput"
+          visible="{= ${/fieldType} === 'dropdown' || ${/fieldType} === 'radio'}" />
+        <Input
+          id="fieldOptionsInput"
+          width="100%"
+          placeholder="Option1, Option2, Option3"
+          visible="{= ${/fieldType} === 'dropdown' || ${/fieldType} === 'radio'}" />
+
+        <CheckBox
+          id="fieldCheckbox"
+          text="Checked by default"
+          visible="{= ${/fieldType} === 'checkbox'}"
+          class="sapUiSmallMarginTop" />
+
+      </VBox>
+    </content>
+
+    <beginButton>
+      <Button text="OK" press=".onDialogOk" />
+    </beginButton>
+    <endButton>
+      <Button text="Cancel" press=".onDialogCancel" />
+    </endButton>
+
+  </Dialog>
+
+</core:FragmentDefinition>
