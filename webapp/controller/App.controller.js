@@ -24,6 +24,8 @@ sap.ui.define([
       this.sectionCount = 0;
       this.selectedSection = null;
       this._dialog = null;
+      this.currentFormId = null;
+      this.currentFormId = Date.now();
       this.fieldType = null;
     },
 
@@ -60,10 +62,14 @@ sap.ui.define([
     
       this.byId("mainVBox").addItem(panel);
       this.selectedSection = grid;
-      this._clearSelectedSections(); // Clear others
+      this._clearSelectedSections();
       panel.addStyleClass("selectedSectionCard");
       this.sectionCount++;
+
+      // Save to localStorage after adding a section
+      this.saveFormToLocalStorage();
     },
+
     _clearSelectedSections: function () {
       const mainVBox = this.byId("mainVBox");
       if (!mainVBox) return;
@@ -80,13 +86,15 @@ sap.ui.define([
         return;
       }
 
-      // Wrap field in VBox with grid layout data (span 4 columns)
       const fieldBox = new VBox({
         layoutData: new GridData({ span: "L4 M6 S12" }),
         items: [oFieldVBox]
       });
 
       this.selectedSection.addContent(fieldBox);
+
+      // Save to localStorage after adding a field
+      this.saveFormToLocalStorage();
     },
 
     onAddTextField: function () {
@@ -113,6 +121,85 @@ sap.ui.define([
       this._openFieldConfigDialog("email");
     },
 
+    saveFormToLocalStorage: function () {
+      const newForm = this._generateFormObject();
+    
+      const existing = localStorage.getItem("forms");
+      let forms = existing ? JSON.parse(existing) : [];
+    
+      // Check if form with current ID already exists
+      const existingIndex = forms.findIndex(f => f.id === newForm.id);
+    
+      if (existingIndex > -1) {
+        forms[existingIndex] = newForm; // Overwrite existing
+      } else {
+        forms.push(newForm); // First-time save
+      }
+    
+      localStorage.setItem("forms", JSON.stringify(forms));
+      MessageToast.show("Form saved to localStorage.");
+    },
+    
+
+    _generateFormObject: function () {
+      const mainVBox = this.byId("mainVBox");
+      const sections = [];
+      let sectionIndex = 1;
+      let questionCounter = 1;
+    
+      mainVBox.getItems().forEach(item => {
+        if (item.isA("sap.m.Panel")) {
+          const sectionId = `sec${sectionIndex++}`;
+          const grid = item.getContent()[0];
+          const questions = [];
+    
+          grid.getContent().forEach(vboxWrapper => {
+            const vbox = vboxWrapper.getItems()[0];
+            const label = vbox.getItems()[0].getText();
+            const field = vbox.getItems()[1];
+    
+            let question = {
+              id: `q${questionCounter++}`,
+              label: label,
+              required: true
+            };
+    
+            if (field.isA("sap.m.Input")) {
+              const type = field.getType ? field.getType() : "Text";
+              question.type = type.toLowerCase() === "email" ? "email" : type.toLowerCase();
+            } else if (field.isA("sap.m.Select")) {
+              question.type = "dropdown";
+              question.options = field.getItems().map(i => i.getText());
+            } else if (field.isA("sap.m.VBox")) {
+              const items = field.getItems();
+              if (items.length && items[0].isA("sap.m.CheckBox")) {
+                question.type = "checkbox";
+                question.options = items.map(i => i.getText());
+              } else if (items.length && items[0].isA("sap.m.RadioButton")) {
+                question.type = "radio";
+                question.options = items.map(i => i.getText());
+              }
+            }
+    
+            questions.push(question);
+          });
+    
+          sections.push({
+            id: sectionId,
+            sectionTitle: item.getHeaderToolbar().getContent()[0].getText(),
+            questions: questions
+          });
+        }
+      });
+    
+      return {
+        id: this.currentFormId,
+        title: this.byId("formTitleInput").getValue().trim() || "Untitled Form",
+        sections: sections
+      };
+    },
+    
+
     _openFieldConfigDialog: function (fieldType) {
       this.fieldType = fieldType;
 
@@ -125,7 +212,6 @@ sap.ui.define([
         sap.ui.core.Fragment.byId(oViewId, "fieldCheckbox")?.setSelected(false);
 
         oDialog.setModel(new sap.ui.model.json.JSONModel({ fieldType: fieldType }));
-
         oDialog.open();
       }.bind(this));
     },
@@ -159,7 +245,8 @@ sap.ui.define([
         MessageToast.show("Please enter a label.");
         return;
       }
-      if (this.fieldType !== "text" && this.fieldType !== "number" && this.fieldType !== "email" && (this.fieldType === "dropdown" || this.fieldType === "radio" || this.fieldType === "checkbox") && optionsRaw.trim() === "") {
+
+      if ((this.fieldType === "dropdown" || this.fieldType === "radio" || this.fieldType === "checkbox") && optionsRaw.trim() === "") {
         MessageToast.show("Please enter options separated by commas.");
         return;
       }
@@ -170,7 +257,6 @@ sap.ui.define([
         case "text":
           fieldControl = new Input({ placeholder });
           break;
-
         case "dropdown":
           const select = new Select();
           optionsRaw.split(",").map(opt => opt.trim()).filter(Boolean).forEach(opt => {
@@ -178,16 +264,13 @@ sap.ui.define([
           });
           fieldControl = select;
           break;
-
         case "checkbox":
-          // Create VBox with multiple checkboxes from options
           const cbVBox = new VBox();
           optionsRaw.split(",").map(opt => opt.trim()).filter(Boolean).forEach(opt => {
             cbVBox.addItem(new CheckBox({ text: opt, selected: false }));
           });
           fieldControl = cbVBox;
           break;
-
         case "radio":
           const radioGroupVBox = new VBox();
           optionsRaw.split(",").map(opt => opt.trim()).filter(Boolean).forEach(opt => {
@@ -195,27 +278,17 @@ sap.ui.define([
           });
           fieldControl = radioGroupVBox;
           break;
-
         case "number":
-          fieldControl = new Input({
-            type: "Number",
-            placeholder
-          });
+          fieldControl = new Input({ type: "Number", placeholder });
           break;
-
         case "email":
-          fieldControl = new Input({
-            type: "Email",
-            placeholder
-          });
+          fieldControl = new Input({ type: "Email", placeholder });
           break;
-
         default:
           MessageToast.show("Unsupported field type");
           return;
       }
 
-      // For checkbox group and radio group, label above controls
       const fieldVBox = new VBox({
         items: [
           new Label({ text: label }),
@@ -224,15 +297,15 @@ sap.ui.define([
       });
 
       this._addFieldToGrid(fieldVBox);
-
       this._dialog.close();
     },
 
     onDialogCancel: function () {
       this._dialog.close();
     },
-    
+
     onCreateForm: function () {
+      this.saveFormToLocalStorage();
       this._navigateToAppView();
     }
 

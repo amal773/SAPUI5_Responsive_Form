@@ -1,4 +1,4 @@
-sap.ui.define([], function () {
+sap.ui.define([], function () { 
   "use strict";
 
   return {
@@ -10,6 +10,8 @@ sap.ui.define([], function () {
       data.sections.push({ name, fields: [] });
       controller.oModel.updateBindings();
       controller.getView().byId("sectionNameInput").setValue("");
+
+      controller.saveFormToLocalStorage(); // ✅ Save after adding section
     },
 
     selectSection: function (controller, oEvent) {

@@ -5,18 +5,25 @@
   xmlns:layout="sap.ui.layout"
   xmlns:core="sap.ui.core">
 
-   <!-- Navbar -->
-     <core:Fragment fragmentName="sap.ui.demo.walkthrough.view.Navbar" type="XML" />
+  <!-- Navbar -->
+  <core:Fragment fragmentName="sap.ui.demo.walkthrough.view.Navbar" type="XML" />
 
   <FlexBox direction="Row" class="fullHeight">
 
     <!-- LEFT PANEL -->
-    <VBox class="leftPanel sapUiSmallMargin" width="30%" height="100%">
-   
+    <VBox class="leftPanel sapUiSmallMargin" width="30%" height="100%" renderType="Bare">
+      
+      <Title text="Form Builder" level="H3" />
 
-      <Title text="Controls" level="H3" />
+      <!-- Form Title Input -->
+      <Label text="Form Title" labelFor="formTitleInput" class="sapUiSmallMarginTop" />
+      <Input id="formTitleInput" placeholder="Enter Form Title" class="sapUiSmallMarginBottom" />
+
+      <!-- Section Controls -->
+      <Title text="Sections" level="H5" class="sapUiSmallMarginTop" />
       <Button text="Add Section" press="onAddSection" class="sapUiTinyMarginBottom" />
 
+      <!-- Field Type Controls -->
       <Title text="Field Types" level="H5" class="sapUiSmallMarginTop" />
       <Button text="Text Input" press="onAddTextField" />
       <Button text="Dropdown" press="onAddDropdown" />
@@ -24,6 +31,7 @@
       <Button text="Radio Button" press="onAddRadioButton" />
       <Button text="Number Input" press="onAddNumberField" />
       <Button text="Email Input" press="onAddEmailField" />
+
     </VBox>
 
     <!-- RIGHT PANEL -->
