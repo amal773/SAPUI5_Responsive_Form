@@ -155,7 +155,47 @@ sap.ui.define([
           window.currentView = oAppView;
           oAppView.placeAt("content");
         });
+      },
+      onSubmitForm: function () {
+        this.onClearForm();
+        sap.m.MessageToast.show("Form submitted successfully!", {
+          duration: 3000,
+          width: "20em"
+        });
+      },
+      
+      onClearForm: function () {
+        const oFormContainer = this.byId("formDisplayVBox");
+        const clearInputs = function (oControl) {
+          if (oControl instanceof sap.m.Input) {
+            oControl.setValue("");
+          } else if (oControl instanceof sap.m.Select) {
+            oControl.setSelectedKey("");
+          } else if (oControl instanceof sap.m.CheckBox) {
+            oControl.setSelected(false);
+          } else if (oControl instanceof sap.m.RadioButton) {
+            oControl.setSelected(false);
+          } else if (oControl instanceof sap.ui.core.Control && oControl.getItems) {
+            oControl.getItems().forEach(clearInputs);
+          } else if (oControl instanceof sap.ui.core.Control && oControl.getContent) {
+            oControl.getContent().forEach(clearInputs);
+          } else if (oControl instanceof sap.ui.core.Control && oControl.getAggregation) {
+            const aggs = oControl.getAggregation("items") || oControl.getAggregation("content") || [];
+            aggs.forEach(clearInputs);
+          }
+        };
+      
+        oFormContainer.getItems().forEach(panel => {
+          panel.getContent().forEach(grid => {
+            if (grid instanceof sap.ui.layout.Grid) {
+              grid.getContent().forEach(vbox => {
+                vbox.getItems().forEach(clearInputs);
+              });
+            }
+          });
+        });
       }
+      
     });
   });
   
