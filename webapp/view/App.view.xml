@@ -5,10 +5,15 @@
   xmlns:layout="sap.ui.layout"
   xmlns:core="sap.ui.core">
 
+   <!-- Navbar -->
+     <core:Fragment fragmentName="sap.ui.demo.walkthrough.view.Navbar" type="XML" />
+
   <FlexBox direction="Row" class="fullHeight">
 
     <!-- LEFT PANEL -->
-    <VBox class="leftPanel sapUiSmallMargin">
+    <VBox class="leftPanel sapUiSmallMargin" width="30%" height="100%">
+   
+
       <Title text="Controls" level="H3" />
       <Button text="Add Section" press="onAddSection" class="sapUiTinyMarginBottom" />
 
@@ -22,7 +27,7 @@
     </VBox>
 
     <!-- RIGHT PANEL -->
-    <VBox id="mainVBox" class="rightPanel sapUiSmallMargin">
+    <VBox id="mainVBox" class="rightPanel sapUiSmallMargin" width="70%" height="100%">
       <Title text="Form Preview" level="H3" />
       <!-- Sections will be added here -->
     </VBox>

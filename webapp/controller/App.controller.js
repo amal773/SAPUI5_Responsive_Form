@@ -230,6 +230,10 @@ sap.ui.define([
 
     onDialogCancel: function () {
       this._dialog.close();
+    },
+    
+    onCreateForm: function () {
+      this._navigateToAppView();
     }
 
   });

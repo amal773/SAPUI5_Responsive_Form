@@ -98,8 +98,39 @@
           
         },
         "routing": {
-          
-        },
+            "config": {
+              "routerClass": "sap.m.routing.Router",
+              "viewType": "XML",
+              "viewPath": "sap.ui.demo.walkthrough.view",
+              "controlId": "app",
+              "controlAggregation": "pages",
+              "bypassed": {
+                "target": "home"
+              },
+              "async": true
+            },
+            "routes": [
+              {
+                "pattern": "",
+                "name": "home",
+                "target": "home"
+              },
+              {
+                "pattern": "app",
+                "name": "app",
+                "target": "app"
+              }
+            ],
+            "targets": {
+              "home": {
+                "viewName": "Home"
+              },
+              "app": {
+                "viewName": "App"
+              }
+            }
+          }
+          ,
         "extends": {
             "component" : "<extendedComponentId>",
 			"minVersion": "<minComp1Version>",
