@@ -39,6 +39,45 @@ sap.ui.define([
           window.currentView = oAppView;
           oAppView.placeAt("content");
         });
+      },
+
+      navigateHome: function () {
+        if (window.currentView) {
+          window.currentView.destroy();
+        }
+  
+        XMLView.create({
+          viewName: "sap.ui.demo.walkthrough.view.Home"
+        }).then(function (oAppView) {
+          window.currentView = oAppView;
+          oAppView.placeAt("content");
+        });
+      },
+
+      navigateForm: function () {
+        if (window.currentView) {
+          window.currentView.destroy();
+        }
+  
+        XMLView.create({
+          viewName: "sap.ui.demo.walkthrough.view.App"
+        }).then(function (oAppView) {
+          window.currentView = oAppView;
+          oAppView.placeAt("content");
+        });
+      },
+
+      navigateUser: function () {
+        if (window.currentView) {
+          window.currentView.destroy();
+        }
+  
+        XMLView.create({
+          viewName: "sap.ui.demo.walkthrough.view.User"
+        }).then(function (oAppView) {
+          window.currentView = oAppView;
+          oAppView.placeAt("content");
+        });
       }
     });
   });
