@@ -25,5 +25,11 @@
       <!-- Dynamically populated form will go here -->
     </VBox>
 
+    <!-- Action Buttons -->
+<HBox class="sapUiMediumMarginTop" justifyContent="Center" alignItems="Center">
+  <Button text="Submit" press="onSubmitForm" type="Emphasized" class="sapUiSmallMarginEnd"/>
+  <Button text="Clear" press="onClearForm"/>
+</HBox>
+
   </VBox>
 </mvc:View>
