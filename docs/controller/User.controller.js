@@ -51,20 +51,17 @@ sap.ui.define([
         const sections = selectedForm.fullData.sections;
       
         sections.forEach(section => {
-          // Add section title
-          oFormContainer.addItem(new sap.m.Title({ text: section.sectionTitle, level: "H4" }));
-      
-          // Use SimpleForm for grid layout
-          const oSimpleForm = new sap.ui.layout.form.SimpleForm({
-            layout: "ResponsiveGridLayout",
-            columnsL: 2,
-            columnsM: 1
+          const grid = new sap.ui.layout.Grid({
+            defaultSpan: "L4 M6 S12",
+            hSpacing: 1,
+            vSpacing: 1
           });
       
           section.questions.forEach(question => {
-            oSimpleForm.addContent(new sap.m.Label({ text: question.label }));
-            let inputField;
+            const vbox = new sap.m.VBox();
+            vbox.addItem(new sap.m.Label({ text: question.label }));
       
+            let inputField;
             switch (question.type) {
               case "text":
                 inputField = new sap.m.Input({ placeholder: question.label });
@@ -76,31 +73,50 @@ sap.ui.define([
                 inputField = new sap.m.Input({ type: "Number", placeholder: question.label });
                 break;
               case "dropdown":
-                inputField = new sap.m.Select({
-                    width: "100%",         // fills container width, but container is limited
-                    maxWidth: "250px",     // max width so it doesn't expand too much
-                    popupWidth: "300px",
-                    items: [
-                      new sap.ui.core.Item({ key: "1", text: "Option 1" }),
-                      new sap.ui.core.Item({ key: "2", text: "Option 2" })
-                    ]
-                  });
-                  
+                const select = new sap.m.Select();
+                question.options.forEach(opt => {
+                  select.addItem(new sap.ui.core.Item({ text: opt, key: opt }));
+                });
+                inputField = select;
+                break;
+              case "checkbox":
+                const cbVBox = new sap.m.VBox();
+                question.options.forEach(opt => {
+                  cbVBox.addItem(new sap.m.CheckBox({ text: opt }));
+                });
+                inputField = cbVBox;
+                break;
+              case "radio":
+                const radioVBox = new sap.m.VBox();
+                const groupName = "radioGroup-" + Math.random().toString(36).substring(2, 7);
+                question.options.forEach(opt => {
+                  radioVBox.addItem(new sap.m.RadioButton({ text: opt, groupName }));
+                });
+                inputField = radioVBox;
                 break;
               default:
                 inputField = new sap.m.Input({ placeholder: question.label });
             }
       
-            if (question.required) {
+            if (question.required && inputField.setRequired) {
               inputField.setRequired(true);
             }
       
-            oSimpleForm.addContent(inputField);
+            vbox.addItem(inputField);
+            vbox.setLayoutData(new sap.ui.layout.GridData({ span: "L4 M6 S12" }));
+            grid.addContent(vbox);
           });
       
-          oFormContainer.addItem(oSimpleForm);
+          const panel = new sap.m.Panel({
+            headerText: section.sectionTitle,
+            content: [grid],
+            class: "sapUiResponsiveMargin sectionPanelSpacing"
+          });
+      
+          oFormContainer.addItem(panel);
         });
-      },
+      }
+      ,
       
       navigateHome: function () {
         if (window.currentView) {
@@ -139,7 +155,47 @@ sap.ui.define([
           window.currentView = oAppView;
           oAppView.placeAt("content");
         });
+      },
+      onSubmitForm: function () {
+        this.onClearForm();
+        sap.m.MessageToast.show("Form submitted successfully!", {
+          duration: 3000,
+          width: "20em"
+        });
+      },
+      
+      onClearForm: function () {
+        const oFormContainer = this.byId("formDisplayVBox");
+        const clearInputs = function (oControl) {
+          if (oControl instanceof sap.m.Input) {
+            oControl.setValue("");
+          } else if (oControl instanceof sap.m.Select) {
+            oControl.setSelectedKey("");
+          } else if (oControl instanceof sap.m.CheckBox) {
+            oControl.setSelected(false);
+          } else if (oControl instanceof sap.m.RadioButton) {
+            oControl.setSelected(false);
+          } else if (oControl instanceof sap.ui.core.Control && oControl.getItems) {
+            oControl.getItems().forEach(clearInputs);
+          } else if (oControl instanceof sap.ui.core.Control && oControl.getContent) {
+            oControl.getContent().forEach(clearInputs);
+          } else if (oControl instanceof sap.ui.core.Control && oControl.getAggregation) {
+            const aggs = oControl.getAggregation("items") || oControl.getAggregation("content") || [];
+            aggs.forEach(clearInputs);
+          }
+        };
+      
+        oFormContainer.getItems().forEach(panel => {
+          panel.getContent().forEach(grid => {
+            if (grid instanceof sap.ui.layout.Grid) {
+              grid.getContent().forEach(vbox => {
+                vbox.getItems().forEach(clearInputs);
+              });
+            }
+          });
+        });
       }
+      
     });
   });
   
