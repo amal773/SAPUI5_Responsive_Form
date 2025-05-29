@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{addSection:function(e){const t=e.getView().byId("sectionNameInput").getValue().trim();if(!t)return;const n=e.oModel.getData();n.sections.push({name:t,fields:[]});e.oModel.updateBindings();e.getView().byId("sectionNameInput").setValue("");e.saveFormToLocalStorage()},selectSection:function(e,t){const n=t.getParameter("listItem").getTitle();const i=e.oModel.getData();i.selectedSection=i.sections.find(e=>e.name===n);e.oModel.updateBindings();e._renderSectionFields()}}});
+//# sourceMappingURL=SectionHandler.js.map
