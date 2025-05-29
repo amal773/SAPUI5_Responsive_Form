@@ -2,11 +2,11 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
   <Bar design="Header">
     <contentLeft>
-      <Button icon="sap-icon://home" text="Home" press="onNavHome" />
-      <Button text="Form Creator" press="onNavHome" />
+      <Button icon="sap-icon://home" text="Home" press="navigateHome" />
+      <Button text="Form Creator" press="navigateForm" />
     </contentLeft>
     <contentRight>
-      <Button icon="sap-icon://user" text="User" press="onNavHome" />
+      <Button icon="sap-icon://user" text="User" press="navigateUser" />
       <Button icon="sap-icon://log" text="Log Out" press="onLogout" />
     </contentRight>
   </Bar>

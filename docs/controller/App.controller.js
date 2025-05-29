@@ -12,9 +12,10 @@ sap.ui.define([
   "sap/m/RadioButton",
   "sap/m/MessageToast",
   "sap/ui/layout/Grid",
-  "sap/ui/layout/GridData"
+  "sap/ui/layout/GridData",
+  "sap/ui/core/mvc/XMLView",
 ], function (
-  Controller, VBox, HBox, Input, Label, Select, Button, Text, Item, CheckBox, RadioButton, MessageToast, Grid, GridData
+  Controller, VBox, HBox, Input, Label, Select, Button, Text, Item, CheckBox, RadioButton, MessageToast, Grid, GridData, XMLView
 ) {
   "use strict";
 
@@ -307,6 +308,44 @@ sap.ui.define([
     onCreateForm: function () {
       this.saveFormToLocalStorage();
       this._navigateToAppView();
+    },
+    navigateHome: function () {
+      if (window.currentView) {
+        window.currentView.destroy();
+      }
+
+      XMLView.create({
+        viewName: "sap.ui.demo.walkthrough.view.Home"
+      }).then(function (oAppView) {
+        window.currentView = oAppView;
+        oAppView.placeAt("content");
+      });
+    },
+
+    navigateForm: function () {
+      if (window.currentView) {
+        window.currentView.destroy();
+      }
+
+      XMLView.create({
+        viewName: "sap.ui.demo.walkthrough.view.App"
+      }).then(function (oAppView) {
+        window.currentView = oAppView;
+        oAppView.placeAt("content");
+      });
+    },
+
+    navigateUser: function () {
+      if (window.currentView) {
+        window.currentView.destroy();
+      }
+
+      XMLView.create({
+        viewName: "sap.ui.demo.walkthrough.view.User"
+      }).then(function (oAppView) {
+        window.currentView = oAppView;
+        oAppView.placeAt("content");
+      });
     }
 
   });
