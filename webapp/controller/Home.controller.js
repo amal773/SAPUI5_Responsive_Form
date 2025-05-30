@@ -7,12 +7,30 @@ sap.ui.define([
   
     return Controller.extend("sap.ui.demo.walkthrough.controller.Home", {
       onInit: function () {
-        // Initialize a JSON model for selectedForm to control Edit button enablement
-        let oModel = new JSONModel({
+        const storedForms = localStorage.getItem("forms");
+        let forms = [];
+      
+        if (storedForms) {
+          try {
+            const parsed = JSON.parse(storedForms);
+            forms = parsed.map(f => ({
+              id: f.id,
+              title: f.title
+            }));
+          } catch (e) {
+            console.error("Error parsing stored forms", e);
+          }
+        }
+      
+        const oModel = new sap.ui.model.json.JSONModel({
+          forms: forms,
           selectedForm: null
         });
+      
         this.getView().setModel(oModel);
       },
+      
+      
   
       onCreateForm: function () {
         this._navigateToAppView();

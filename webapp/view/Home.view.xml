@@ -43,18 +43,18 @@
   width="400px"
   class="sapUiMediumMarginTop"
 >
-  <Select
-    id="formSelect"
-    change="onFormSelectChange"
-    width="250px"
-  >
-    <items>
-      <core:Item key="" text="-- Select a form --"/>
-      <core:Item key="Form 1" text="Form 1"/>
-      <core:Item key="Form 2" text="Form 2"/>
-      <core:Item key="Form 3" text="Form 3"/>
-    </items>
-  </Select>
+<Select
+  id="formSelect"
+  change="onFormSelectChange"
+  width="250px"
+  selectedKey="{/selectedForm}"
+  items="{/forms}"
+>
+  <core:Item key="{id}" text="{title}" />
+</Select>
+
+
+
 
   <Button
     text="Edit Selected Form"
