@@ -42,6 +42,11 @@
           selectedKey="{/selectedForm}"
           items="{/forms}"
         >
+        
+<layoutData>
+    <FlexItemData growFactor="1" />
+  </layoutData>
+
           <core:Item key="{id}" text="{title}" />
         </Select>
         <Button
