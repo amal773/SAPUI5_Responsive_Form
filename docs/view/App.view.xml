@@ -23,14 +23,24 @@
       <Title text="Sections" level="H5" class="sapUiSmallMarginTop" />
       <Button text="Add Section" press="onAddSection" class="sapUiTinyMarginBottom" />
 
-      <!-- Field Type Controls -->
-      <Title text="Field Types" level="H5" class="sapUiSmallMarginTop" />
-      <Button text="Text Input" press="onAddTextField" />
-      <Button text="Dropdown" press="onAddDropdown" />
-      <!-- <Button text="Checkbox" press="onAddCheckbox" /> -->
-      <Button text="Radio Button" press="onAddRadioButton" />
-      <Button text="Number Input" press="onAddNumberField" />
-      <Button text="Email Input" press="onAddEmailField" />
+   <!-- Field Type Controls -->
+<Title text="Field Types" level="H5" class="sapUiSmallMarginTop" />
+
+<Button text="Text Input" press="onAddTextField" 
+        icon="sap-icon://edit" iconPosition="Begin" />
+
+<Button text="Dropdown" press="onAddDropdown" 
+        icon="sap-icon://slim-arrow-down" iconPosition="Begin" />
+
+<Button text="Radio Button" press="onAddRadioButton" 
+        icon="sap-icon://multi-select" iconPosition="Begin" />
+
+<Button text="Number Input" press="onAddNumberField" 
+        icon="sap-icon://number-sign" iconPosition="Begin" />
+
+<Button text="Email Input" press="onAddEmailField" 
+        icon="sap-icon://email" iconPosition="Begin" />
+
 
     </VBox>
 
