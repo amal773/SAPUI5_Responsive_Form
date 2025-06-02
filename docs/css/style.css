@@ -70,4 +70,13 @@
     border-radius: 8px;
   }
   
+  .styledReasonText {
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #f3f4f5;
+    border-left: 4px solid #0070f2;
+    font-style: italic;
+    color: #333;
+    border-radius: 4px;
+  }
   
