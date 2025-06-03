@@ -9,6 +9,7 @@
   <core:Fragment fragmentName="sap.ui.demo.walkthrough.view.Navbar" type="XML" />
 
   <!-- Outer VBox to take full height -->
+  
   <VBox class="sapUiSmallMargin" width="100%" height="100%" alignItems="Center">
 
     <!-- Form Selector -->
@@ -22,11 +23,11 @@
     </HBox>
 
     <!-- ✅ Scrollable Container -->
-    <ScrollContainer height="500px" vertical="true" horizontal="false" width="100%">
+   
       <VBox id="formDisplayVBox" class="rightPanel sapUiSmallMargin" width="97%">
         <!-- Dynamically populated form will go here -->
       </VBox>
-    </ScrollContainer>
+   
 
     <!-- Action Buttons -->
     <HBox class="sapUiMediumMarginTop" justifyContent="Center" alignItems="Center">
@@ -35,4 +36,5 @@
     </HBox>
 
   </VBox>
+  
 </mvc:View>
