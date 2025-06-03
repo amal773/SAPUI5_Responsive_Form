@@ -1,3 +1,4 @@
+
 sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
@@ -15,6 +16,7 @@ sap.ui.define(
     "sap/ui/layout/Grid",
     "sap/ui/layout/GridData",
     "sap/ui/core/mvc/XMLView",
+    "sap/ui/demo/walkthrough/model/MockODataService"
   ],
   function (
     Controller,
@@ -31,7 +33,8 @@ sap.ui.define(
     MessageToast,
     Grid,
     GridData,
-    XMLView
+    XMLView,
+    MockODataService
   ) {
     "use strict";
 
@@ -44,7 +47,7 @@ sap.ui.define(
         this.fieldType = null;
 
         const globalModel = sap.ui.getCore().getModel();
-        const selectedFormId = globalModel?.getProperty("/selectedForm");
+        const selectedForm = globalModel?.getProperty("/selectedForm");
         const isNewForm = globalModel?.getProperty("/isNewForm");
 
         if (isNewForm) {
@@ -55,21 +58,10 @@ sap.ui.define(
           this.sectionCount = 0;
           this.selectedSection = null;
           this.onAddSection(); // Optional: add a default section
-        } else if (selectedFormId) {
-          // Existing form: load from localStorage
-          const storedForms = localStorage.getItem("forms");
-          if (storedForms) {
-            try {
-              const forms = JSON.parse(storedForms);
-              const selectedForm = forms.find((f) => f.id == selectedFormId);
-              if (selectedForm) {
-                this.currentFormId = selectedForm.id;
-                this._loadFormIntoBuilder(selectedForm);
-              }
-            } catch (e) {
-              console.error("Error loading selected form", e);
-            }
-          }
+        } else if (selectedForm) {
+          // Existing form: load from MockODataService
+          this.currentFormId = selectedForm.id;
+          this._loadFormIntoBuilder(selectedForm);
         }
       },
 
@@ -221,7 +213,7 @@ sap.ui.define(
         panel.addStyleClass("selectedSectionCard");
         this.sectionCount++;
 
-        // Save to localStorage after adding a section
+        // Save to MockODataService after adding a section
         this.saveFormToLocalStorage();
       },
 
@@ -248,7 +240,7 @@ sap.ui.define(
 
         this.selectedSection.addContent(fieldBox);
 
-        // Save to localStorage after adding a field
+        // Save to MockODataService after adding a field
         this.saveFormToLocalStorage();
       },
 
@@ -278,21 +270,8 @@ sap.ui.define(
 
       saveFormToLocalStorage: function () {
         const newForm = this._generateFormObject();
-
-        const existing = localStorage.getItem("forms");
-        let forms = existing ? JSON.parse(existing) : [];
-
-        // Check if form with current ID already exists
-        const existingIndex = forms.findIndex((f) => f.id === newForm.id);
-
-        if (existingIndex > -1) {
-          forms[existingIndex] = newForm; // Overwrite existing
-        } else {
-          forms.push(newForm); // First-time save
-        }
-
-        localStorage.setItem("forms", JSON.stringify(forms));
-        MessageToast.show("Form saved to localStorage.");
+        MockODataService.saveForm(newForm);
+        MessageToast.show("Form saved (mock OData).");
       },
 
       _generateFormObject: function () {
