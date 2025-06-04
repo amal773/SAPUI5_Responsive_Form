@@ -9,15 +9,16 @@
   <core:Fragment fragmentName="sap.ui.demo.walkthrough.view.Navbar" type="XML" />
 
   <!-- Main Layout -->
-  <VBox
-    class="sapUiContentPadding"
-    alignItems="Center"
-    justifyContent="Start"
-    width="100%"
-  >
+  <VBox class="pageBackground fullHeight" alignItems="Center" justifyContent="Center">
 
     <!-- Hero Section -->
     <VBox alignItems="Center" class="sapUiMediumMarginBottom">
+      <Image
+        src="css/form-maker-jpg.jpg"
+        alt="Form Builder Banner"
+        width="320px"
+        class="heroImage"
+      />
       <Title text="Welcome to the Form Builder" level="H1" />
       <Text text="Create and manage your custom forms with ease." />
     </VBox>
@@ -32,31 +33,31 @@
     />
 
     <!-- Dropdown to Select Existing Form -->
-    <VBox width="400px" class="sapUiMediumMarginTop">
-      <Label text="Select a Form to Edit" class="sapUiSmallMarginBottom" />
-      <HBox>
-        <Select
-          id="formSelect"
-          change="onFormSelectChange"
-          width="100%"
-          selectedKey="{/selectedForm}"
-          items="{/forms}"
-        >
-        
-<layoutData>
-    <FlexItemData growFactor="1" />
-  </layoutData>
-
-          <core:Item key="{id}" text="{title}" />
-        </Select>
-        <Button
-          text="Edit"
-          press="onEditForm"
-          type="Accept"
-          enabled="{= !!${/selectedForm} }"
-          class="sapUiTinyMarginBegin"
-        />
-      </HBox>
+    <VBox alignItems="Center" justifyContent="Center" class="formSelectWrapper">
+      <VBox width="400px">
+        <Label text="Select a Form to Edit" class="sapUiSmallMarginBottom" />
+        <HBox>
+          <Select
+            id="formSelect"
+            change="onFormSelectChange"
+            width="100%"
+            selectedKey="{/selectedForm}"
+            items="{/forms}"
+          >
+            <layoutData>
+              <FlexItemData growFactor="1" />
+            </layoutData>
+            <core:Item key="{id}" text="{title}" />
+          </Select>
+          <Button
+            text="Edit"
+            press="onEditForm"
+            type="Accept"
+            enabled="{= !!${/selectedForm} }"
+            class="sapUiTinyMarginBegin"
+          />
+        </HBox>
+      </VBox>
     </VBox>
 
   </VBox>

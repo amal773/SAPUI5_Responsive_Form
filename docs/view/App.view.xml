@@ -8,10 +8,12 @@
   <!-- Navbar -->
   <core:Fragment fragmentName="sap.ui.demo.walkthrough.view.Navbar" type="XML" />
 
+<VBox class="pageBackground fullHeight" width="100%">
+
   <FlexBox direction="Row" class="fullHeight">
 
     <!-- LEFT PANEL -->
-    <VBox class="leftPanel sapUiSmallMargin" width="30%" height="100%" renderType="Bare">
+    <VBox class="leftPanel sapUiSmallMargin" width="15%" height="100%" renderType="Bare">
       
       <Title text="Form Builder" level="H3" />
 
@@ -45,10 +47,11 @@
     </VBox>
 
     <!-- RIGHT PANEL -->
-    <VBox id="mainVBox" class="rightPanel sapUiSmallMargin" width="70%" height="100%">
+    <VBox id="mainVBox" class="rightPanel sapUiSmallMargin" width="80%" height="100%">
       <Title text="Form Preview" level="H3" />
       <!-- Sections will be added here -->
     </VBox>
 
   </FlexBox>
+   </VBox>
 </mvc:View>
