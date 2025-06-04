@@ -10,6 +10,10 @@
 
   <!-- Outer VBox to take full height -->
   
+<VBox class="pageBackground" width="100%">
+  <VBox class="sapUiContentPadding" alignItems="Center" justifyContent="Start" width="100%">
+
+  
   <VBox class="sapUiSmallMargin" width="100%" height="100%" alignItems="Center">
 
     <!-- Form Selector -->
@@ -24,7 +28,7 @@
 
     <!-- ✅ Scrollable Container -->
    
-      <VBox id="formDisplayVBox" class="rightPanel sapUiSmallMargin" width="97%">
+      <VBox id="formDisplayVBox" class="rightPanel sapUiSmallMargin" width="100%">
         <!-- Dynamically populated form will go here -->
       </VBox>
    
@@ -36,5 +40,10 @@
     </HBox>
 
   </VBox>
+  
+
+  </VBox>
+</VBox>
+
   
 </mvc:View>

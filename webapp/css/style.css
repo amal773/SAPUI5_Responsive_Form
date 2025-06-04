@@ -1,87 +1,163 @@
-.fullHeight {
-    height: 100vh;
-  }
-  
-  .leftPanel {
-    width: 250px;
-    padding: 1rem;
-    background-color: #f4f4f4;
-    border-right: 1px solid #ccc;
-  }
-  
-  .rightPanel {
-    flex: 1;
-    padding: 1rem;
-    overflow-y: auto;
-  }
-  
-  .sectionBox {
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: #fff;
-  }
-  
-  .sectionHeader {
-    font-weight: bold;
-    font-size: 1.1rem;
-  }
-  .section-box {
-    border: 1px solid #cccccc;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-  }
-  
-  .question-label {
-    font-weight: 600;
-  }
-  
-  .question-type {
-    font-style: italic;
-    color: #777;
-  }
-  .sectionBox {
-    border: 1px solid #ccc;
-    padding: 1rem;
-    border-radius: 4px;
-    background-color: #fafafa;
-  }
-  
-  .sectionHeader {
-    font-weight: 600;
-    font-size: 1.2rem;
-  }
-  .sapMPanel {
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    background-color: white;
-  }
-  .selectedSectionCard {
-    background-color: #e0f7fa !important; /* Light blue */
-    border: 2px solid #26c6da;            /* Blue border */
-    border-radius: 8px;
-  }
+html,
+body,
+#content {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "72", "Arial", sans-serif; 
+  background: linear-gradient(to right, #f0f4f8, #ffffff);
+  overflow: auto;
+}
 
-  .sectionPanelSpacing {
-    margin-bottom: 20px; /* space between sections */
-    padding: 16px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+.pageBackground {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
+  background: linear-gradient(to right, #e3f2fd, #ffffff);
+}
+
+.sapUiContentPadding {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 3.5rem;
+  max-width: 99.9%;
+  width: 100%;
+}
+
+#formDisplayVBox {
+  background: linear-gradient(to bottom right, #f9fbfd, #ffffff);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  margin-top: 1rem;
+}
+
+.sectionBox {
+  border: 1px solid #e0e0e0;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  margin-bottom: 1.5rem;
+}
+
+.sectionHeader {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.styledReasonText {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  background-color: #f1f8ff;
+  border-left: 4px solid #2196f3;
+  font-style: italic;
+  color: #333;
+  border-radius: 6px;
+}
+
+.selectedSectionCard {
+  background-color: #e0f7fa !important;
+  border: 2px solid #26c6da;
+  border-radius: 10px;
+}
+
+.sectionPanelSpacing {
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+.buttonContainer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.sapUiSmallMarginBottom {
+  margin-left: 132px;
+}
+
+
+.heroImage {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
   }
   
-  .styledReasonText {
-    margin-top: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    background-color: #f3f4f5;
-    border-left: 4px solid #0070f2;
-    font-style: italic;
-    color: #333;
-    border-radius: 4px;
-  }
-  html, body, #content {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-  }
+
+.sapMLabel {
+  font-weight: 600;
+  color: #333;
+}
+
+.sapMInputBase {
+  margin-bottom: 1rem;
+}
+
+.formPanel {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+}
+#formDisplayVBox {
+  background: linear-gradient(to bottom right, #f9fbfd, #ffffff);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  margin-top: 1rem;
+  width: 100%;
+}
+.customNavbar {
+  background: linear-gradient(to right, #2196f3, #21cbf3);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.customNavbar .sapMTitle {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.customNavbar .sapMBtnInner {
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+
+.customNavbar .sapMBtn:hover .sapMBtnInner {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.fullHeight{
+  margin-top: 0rem;
+}
+
+.formSelectWrapper {
+  margin-top: 0rem; /* Reduce top spacing */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.heroImage {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.pageBackground {
+  padding-top: 2rem; /* Reduce from 3rem if needed */
+}
+
